@@ -1,0 +1,77 @@
+/* src/App.css */
+
+/* Fondo suave + layout centrado */
+:root {
+    --page-bg: #f6f7fb;
+}
+
+ion-content {
+    --background: var(--page-bg);
+}
+
+/* Contenedor centrado */
+.page-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-bottom: 24px;
+}
+
+/* Card más elegante */
+ion-card {
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(42, 103, 225, 0.08);
+    overflow: hidden;
+}
+
+ion-card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+/* Inputs y items más “clean” */
+ion-item {
+    --border-radius: 14px;
+    --background: #ffffff;
+    --padding-start: 14px;
+    --inner-padding-end: 12px;
+    margin-top: 10px;
+}
+
+/* Botón principal */
+.primary-btn {
+    --border-radius: 14px;
+    height: 44px;
+    font-weight: 700;
+}
+
+/* Listas con bordes suaves */
+ion-list {
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 8px 22px rgba(16, 24, 40, 0.06);
+}
+
+ion-list-header {
+    background: transparent;
+    padding-top: 10px;
+}
+
+/* Título de tarea */
+.task-title {
+    font-size: 0.98rem;
+    font-weight: 650;
+}
+
+/* Badge más sutil */
+ion-badge {
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-weight: 700;
+}
+
+/* Botones de acción */
+.action-btn {
+    --border-radius: 12px;
+    height: 34px;
+}
