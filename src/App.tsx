@@ -1,75 +1,55 @@
-import { useState } from 'react'
-import {
-  IonApp,
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonText
-} from '@ionic/react'
+import { Redirect, Route } from 'react-router-dom'
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react'
+import { IonReactRouter } from '@ionic/react-router'
 
-import TaskForm from './TaskForm'
-import TaskList from './TaskList'
-import { Task } from './types'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
+import TasksListPage from './pages/TasksListPage'
+import TaskFormPage from './pages/TaskFormPage'
+import TaskDetailPage from './pages/TaskDetailPage'
+import ProtectedRoute from './ProtectedRoute'
 
-import './App.css'
+setupIonicReact()
 
-function App() {
-  const [tasks, setTasks] = useState<Task[]>([])
+const App: React.FC = () => (
+  <IonApp>
+    <IonReactRouter>
+      <IonRouterOutlet>
 
-  const addTask = (title: string) => {
-    setTasks(prev => [
-      { id: Date.now(), title, completed: false },
-      ...prev
-    ])
-  }
+        {/* Rutas públicas */}
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
 
-  const toggleTask = (id: number) => {
-    setTasks(prev =>
-      prev.map(task =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    )
-  }
+        <Route exact path="/register">
+          <RegisterPage />
+        </Route>
 
-  const deleteTask = (id: number) => {
-    setTasks(prev => prev.filter(task => task.id !== id))
-  }
+        {/* Rutas protegidas */}
+        <ProtectedRoute exact path="/tasks">
+          <TasksListPage />
+        </ProtectedRoute>
 
-  return (
-    <IonApp>
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Task Manager</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <ProtectedRoute exact path="/tasks/create">
+          <TaskFormPage />
+        </ProtectedRoute>
 
-        <IonContent className="ion-padding">
-          <div className="page-wrap">
+        <ProtectedRoute exact path="/tasks/edit/:id">
+          <TaskFormPage />
+        </ProtectedRoute>
 
-            <IonText color="medium">
-              <p style={{ marginTop: 0 }}>
-                Organiza tus tareas de manera simple y elegante.
-              </p>
-            </IonText>
+        <ProtectedRoute exact path="/tasks/detail/:id">
+          <TaskDetailPage />
+        </ProtectedRoute>
 
-            <TaskForm onAdd={addTask} />
+        {/* Entrada por defecto */}
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
 
-            <TaskList
-              tasks={tasks}
-              onToggle={toggleTask}
-              onDelete={deleteTask}
-            />
-
-          </div>
-        </IonContent>
-      </IonPage>
-    </IonApp>
-  )
-}
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+)
 
 export default App
